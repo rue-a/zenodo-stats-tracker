@@ -1,12 +1,14 @@
 # Zenodo Stats Tracker
 
-This repository automatically tracks view and download statistics for specific Zenodo records on a monthly basis.
+This repository automatically tracks monthly growth in views and downloads for specific Zenodo records.
 
 ## How it works
-- **Script:** `scripts/fetch_stats.py` queries the Zenodo REST API.
-- **Automation:** A GitHub Action runs on the 1st of every month.
-- **Storage:** Data is appended to `data/stats_history.csv`.
+- **Data Source:** Every month, the script fetches the "All-Time" statistics from the Zenodo REST API.
+- **Monthly Growth:** The script compares the new totals against the previous month's file. 
+- **Delta Calculation:** `Monthly Stats = (Current All-Time Total) - (Previous Month All-Time Total)`
+- **Output:** A new CSV file is generated in the `data/` folder for each month (e.g., `stats_2026-02.csv`).
 
-## Setup
-1. Add your Record IDs to the `RECORD_IDS` list in `scripts/fetch_stats.py`.
-2. Ensure the GitHub Action has "Read and Write" permissions to commit changes back to the repo.
+## Management
+- **Records:** To track new entries, add the Zenodo Record ID to `data/records.txt`.
+- **Automation:** A GitHub Action runs on the 1st of every month to generate the report.
+- **Totals:** Each file includes a **GRAND TOTAL** row representing the sum of all tracked records.
